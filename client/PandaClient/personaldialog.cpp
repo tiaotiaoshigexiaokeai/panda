@@ -19,11 +19,12 @@ PersonalDialog::PersonalDialog(QWidget *parent,ClientSocket *_tcp,QString _oppos
     ui->setupUi(this);
     this->setWindowTitle(tr("私人聊天..."));
     ui->textEdit->setReadOnly(true);
-
+    ui->lineEdit_name->setReadOnly(true);
     //connect(ui->textEdit_2, SIGNAL(returnPressed()),ui->pushButton_send,SIGNAL(clicked()),Qt::UniqueConnection);
 
 //    connect(tcp, SIGNAL(signalMessage(quint8,QJsonValue)), this, SLOT(SltTcpReply(quint8,QJsonValue)));
-
+    ui->fontComboBox->setEditable(false);
+    ui->comboBox->setEditable(false);
 }
 
 PersonalDialog::~PersonalDialog()
@@ -64,6 +65,11 @@ void PersonalDialog::keyPressEvent(QKeyEvent *event)
     }
 
     QWidget::keyPressEvent(event);
+}
+
+void PersonalDialog::closeEvent1(QCloseEvent *event)
+{
+    emit signalClose1(oppositeName);
 }
 
 void PersonalDialog::on_pushButton_send_clicked()
@@ -141,7 +147,7 @@ void PersonalDialog::on_toolButton_clicked(bool checked)
 
 void PersonalDialog::on_toolButton_2_clicked(bool checked)
 {
-    ui->textEdit_2->setFontUnderline(checked);
+    ui->textEdit_2->setFontItalic(checked);
     ui->textEdit_2->setFocus();
 }
 
